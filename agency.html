@@ -2,54 +2,182 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GhostWriter Agency</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhostWriter | Command Center</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background: #020617; color: white; padding: 60px 20px; font-family: 'Inter', sans-serif; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .glass-card { 
-            background: rgba(30, 41, 59, 0.5); 
-            border: 1px solid rgba(59, 130, 246, 0.3); 
-            padding: 30px; 
-            border-radius: 15px; 
-            backdrop-filter: blur(10px);
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;800&display=swap');
+
+        :root {
+            --primary: #3b82f6;
+            --accent: #60a5fa;
+            --bg: #020617;
+            --card-bg: rgba(15, 23, 42, 0.7);
         }
-        .tag { color: #3b82f6; font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; }
-        h5 { margin-top: 10px; font-weight: 700; color: #f8fafc; }
-        .btn-link { color: #3b82f6; text-decoration: none; font-size: 0.8rem; font-weight: bold; border: 1px solid #3b82f6; padding: 5px 15px; border-radius: 5px; display: inline-block; margin-top: 15px; }
-        .btn-link:hover { background: #3b82f6; color: white; }
+
+        body { 
+            background-color: var(--bg); 
+            color: #f8fafc; 
+            font-family: 'Inter', sans-serif;
+            background-image: 
+                radial-gradient(circle at 50% -20%, #1e293b, transparent),
+                radial-gradient(circle at 0% 100%, #0f172a, transparent);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 80px 20px;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 3rem;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, #fff 40%, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .card-content {
+            padding: 30px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .client-id {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .post-title {
+            font-weight: 800;
+            font-size: 1.25rem;
+            line-height: 1.4;
+            color: #fff;
+        }
+
+        .spacer { flex-grow: 1; min-height: 20px; }
+
+        .cyber-btn {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: 0.3s;
+            border: none;
+            display: block;
+        }
+
+        .cyber-btn:hover {
+            filter: brightness(1.2);
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .status-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: #475569;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="mb-5">GHOSTWRITER_PORTAL</h1>
-        <div class="grid">
+        <div class="header-section">
+            <h1>GhostWriter<span style="color:var(--primary)">_</span></h1>
+            <p class="text-secondary small">ACTIVE_AGENT_SESSIONS // ENCRYPTED_FEED</p>
+        </div>
+        
+        <div class="grid-layout">
             
-        <div class="card-wrapper">
-            <div class="glass-card">
-                <span class="tag">PABLO_ZANELLA</span>
-                <h5>ZANELLA ADVOGACIA</h5>
-                <a href="pablo_zanella/Zanella_Advogacia.html" class="btn-link">VIEW_LOG</a>
+        <div class="glass-card">
+            <div class="card-content">
+                <span class="client-id">AGENT_ID // PABLO_ZANELLA</span>
+                <h3 class="post-title">ZANELLA ADVOGACIA</h3>
+                <div class="spacer"></div>
+                <a href="pablo_zanella/Zanella_Advogacia.html" class="cyber-btn">
+                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
+                    <span class="btn-glitch"></span>
+                </a>
             </div>
         </div>
 
-        <div class="card-wrapper">
-            <div class="glass-card">
-                <span class="tag">PABLO_ZANELLA</span>
-                <h5>SAIBA SEUS DIREITOS DE CONSUMI</h5>
-                <a href="pablo_zanella/Saiba_seus_direitos_de_consumi.html" class="btn-link">VIEW_LOG</a>
+        <div class="glass-card">
+            <div class="card-content">
+                <span class="client-id">AGENT_ID // PABLO_ZANELLA</span>
+                <h3 class="post-title">SAIBA SEUS DIREITOS DE CONSUMI</h3>
+                <div class="spacer"></div>
+                <a href="pablo_zanella/Saiba_seus_direitos_de_consumi.html" class="cyber-btn">
+                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
+                    <span class="btn-glitch"></span>
+                </a>
             </div>
         </div>
 
-        <div class="card-wrapper">
-            <div class="glass-card">
-                <span class="tag">PROFESSOR_DAVID</span>
-                <h5>EULER IDENTITY MATHEMATIC EXPR</h5>
-                <a href="professor_david/Euler_identity_mathematic_expr.html" class="btn-link">VIEW_LOG</a>
+        <div class="glass-card">
+            <div class="card-content">
+                <span class="client-id">AGENT_ID // PROFESSOR_DAVID</span>
+                <h3 class="post-title">EULER IDENTITY MATHEMATIC EXPR</h3>
+                <div class="spacer"></div>
+                <a href="professor_david/Euler_identity_mathematic_expr.html" class="cyber-btn">
+                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
+                    <span class="btn-glitch"></span>
+                </a>
             </div>
         </div>
 
         </div>
+    </div>
+    
+    <div class="status-bar">
+        System Status: Optimal // Connection: Secured // Agency: Active
     </div>
 </body>
 </html>
