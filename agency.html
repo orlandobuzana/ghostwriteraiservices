@@ -2,254 +2,196 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GhostWriter | Command Center</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;800&display=swap');
-
-        :root {
-            --primary: #3b82f6;
-            --accent: #60a5fa;
-            --bg: #020617;
-            --card-bg: rgba(15, 23, 42, 0.7);
-        }
-
-        body { 
-            background-color: var(--bg); 
-            color: #f8fafc; 
-            font-family: 'Inter', sans-serif;
-            background-image: 
-                radial-gradient(circle at 50% -20%, #1e293b, transparent),
-                radial-gradient(circle at 0% 100%, #0f172a, transparent);
-            background-attachment: fixed;
-            min-height: 100vh;
-            padding: 80px 20px;
-        }
-
-        .header-section {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        h1 {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 800;
-            font-size: 3rem;
-            letter-spacing: -3px;
-            text-transform: uppercase;
-            background: linear-gradient(to bottom, #fff 40%, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .grid-layout {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .glass-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 20px;
-            backdrop-filter: blur(12px);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(59, 130, 246, 0.2);
-        }
-
-        .card-content {
-            padding: 30px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .client-id {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--primary);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .post-title {
-            font-weight: 800;
-            font-size: 1.25rem;
-            line-height: 1.4;
-            color: #fff;
-        }
-
-        .spacer { flex-grow: 1; min-height: 20px; }
-
-        .cyber-btn {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            font-weight: 700;
-            transition: 0.3s;
-            border: none;
-            display: block;
-        }
-
-        .cyber-btn:hover {
-            filter: brightness(1.2);
-            color: white;
-            letter-spacing: 1px;
-        }
-
-        .status-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            color: #475569;
-            text-transform: uppercase;
-        }
+        :root { --primary: #3b82f6; --bg: #020617; }
+        body { background-color: var(--bg); color: #f8fafc; font-family: 'Inter', sans-serif; padding: 60px 20px; }
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .glass-card { background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 20px; backdrop-filter: blur(12px); }
+        .card-content { padding: 30px; }
+        .client-id { font-family: 'JetBrains Mono', monospace; color: var(--primary); font-size: 0.7rem; letter-spacing: 2px; }
+        .post-title { font-weight: 800; font-size: 1.2rem; color: #fff; }
+        .cyber-btn { background: var(--primary); color: white; text-decoration: none; padding: 10px; border-radius: 8px; display: block; text-align: center; font-size: 0.8rem; font-family: 'JetBrains Mono'; margin-top: 20px; }
+        
+        /* ARCHIVE STYLES */
+        .archive-section { max-width: 1200px; margin: 0 auto; background: rgba(15, 23, 42, 0.4); padding: 30px; border-radius: 20px; border: 1px solid #1e293b; }
+        .table { --bs-table-bg: transparent; --bs-table-color: #94a3b8; border-color: #1e293b; vertical-align: middle; }
+        .archive-link { color: var(--primary); text-decoration: none; font-family: 'JetBrains Mono'; font-size: 0.75rem; border: 1px solid var(--primary); padding: 2px 8px; border-radius: 4px; }
+        .archive-link:hover { background: var(--primary); color: white; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header-section">
-            <h1>GhostWriter<span style="color:var(--primary)"></span></h1>
-            <p class="text-secondary small">ACTIVE_AGENT_SESSIONS // ENCRYPTED_FEED</p>
-        </div>
+        <h1 style="font-family:'JetBrains Mono'; font-weight:800; margin-bottom:40px;">GHOSTWRITER<span style="color:var(--primary)">_</span></h1>
         
         <div class="grid-layout">
             
         <div class="glass-card">
             <div class="card-content">
-                <span class="client-id">AGENT_ID // GHOSTWRITER</span>
+                <span class="client-id">ACTIVE_AGENT // GHOSTWRITER</span>
                 <h3 class="post-title">THE BENEFITS OF HIRING US</h3>
                 <div class="spacer"></div>
-                <a href="ghostwriter/The_benefits_of_hiring_us.html" class="cyber-btn">
-                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
-                    <span class="btn-glitch"></span>
-                </a>
+                <a href="ghostwriter/The_benefits_of_hiring_us.html" class="cyber-btn">OPEN_LOG</a>
             </div>
         </div>
 
         <div class="glass-card">
             <div class="card-content">
-                <span class="client-id">AGENT_ID // PABLO_ZANELLA</span>
+                <span class="client-id">ACTIVE_AGENT // PABLO_ZANELLA</span>
                 <h3 class="post-title">ZANELLA ADVOGACIA</h3>
                 <div class="spacer"></div>
-                <a href="pablo_zanella/Zanella_Advogacia.html" class="cyber-btn">
-                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
-                    <span class="btn-glitch"></span>
-                </a>
+                <a href="pablo_zanella/Zanella_Advogacia.html" class="cyber-btn">OPEN_LOG</a>
             </div>
         </div>
 
         <div class="glass-card">
             <div class="card-content">
-                <span class="client-id">AGENT_ID // PABLO_ZANELLA</span>
+                <span class="client-id">ACTIVE_AGENT // PABLO_ZANELLA</span>
                 <h3 class="post-title">SAIBA SEUS DIREITOS DE CONSUMI</h3>
                 <div class="spacer"></div>
-                <a href="pablo_zanella/Saiba_seus_direitos_de_consumi.html" class="cyber-btn">
-                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
-                    <span class="btn-glitch"></span>
-                </a>
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="card-content">
-                <span class="client-id">AGENT_ID // PROFESSOR_DAVID</span>
-                <h3 class="post-title">EULER IDENTITY MATHEMATIC EXPR</h3>
-                <div class="spacer"></div>
-                <a href="professor_david/Euler_identity_mathematic_expr.html" class="cyber-btn">
-                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
-                    <span class="btn-glitch"></span>
-                </a>
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="card-content">
-                <span class="client-id">AGENT_ID // OAKFLIP</span>
-                <h3 class="post-title">DONATE YOUR OLD CLOTHES  DONT </h3>
-                <div class="spacer"></div>
-                <a href="oakflip/Donate_your_old_clothes__dont_.html" class="cyber-btn">
-                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
-                    <span class="btn-glitch"></span>
-                </a>
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="card-content">
-                <span class="client-id">AGENT_ID // ENE_CONTRUCTION</span>
-                <h3 class="post-title">HIRE US FOR YOUR NEXT PROJECT </h3>
-                <div class="spacer"></div>
-                <a href="ene_contruction/Hire_us_for_your_next_project_.html" class="cyber-btn">
-                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
-                    <span class="btn-glitch"></span>
-                </a>
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="card-content">
-                <span class="client-id">AGENT_ID // ENE_CONTRUCTION</span>
-                <h3 class="post-title">CONSTRUCTION SERVICES</h3>
-                <div class="spacer"></div>
-                <a href="ene_contruction/Construction_Services.html" class="cyber-btn">
-                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
-                    <span class="btn-glitch"></span>
-                </a>
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="card-content">
-                <span class="client-id">AGENT_ID // THE_SMILE_INSTITUTE</span>
-                <h3 class="post-title">BLOG 20260211 112003</h3>
-                <div class="spacer"></div>
-                <a href="The_Smile_Institute/blog_20260211_112003.html" class="cyber-btn">
-                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
-                    <span class="btn-glitch"></span>
-                </a>
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <div class="card-content">
-                <span class="client-id">AGENT_ID // THE_SMILE_INSTITUTE</span>
-                <h3 class="post-title">BLOG 20260211 104503</h3>
-                <div class="spacer"></div>
-                <a href="The_Smile_Institute/blog_20260211_104503.html" class="cyber-btn">
-                    <span class="btn-text">OPEN_ENCRYPTED_LOG</span>
-                    <span class="btn-glitch"></span>
-                </a>
+                <a href="pablo_zanella/Saiba_seus_direitos_de_consumi.html" class="cyber-btn">OPEN_LOG</a>
             </div>
         </div>
 
         </div>
-    </div>
-    
-    <div class="status-bar">
-        System Status: Optimal // Connection: Secured // Agency: Active
+
+        <div class="archive-section">
+            <h4 style="font-family:'JetBrains Mono'; color:#475569; margin-bottom:20px;">// MISSION_ARCHIVE</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>AGENT</th>
+                        <th>MISSION_OBJECTIVE</th>
+                        <th>TIMESTAMP</th>
+                        <th class="text-end">LOG</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td><span class="client-id" style="margin:0;">PROFESSOR_DAVID</span></td>
+            <td><span class="text-white small fw-bold">EULER IDENTITY MATHEMATIC EXPR</span></td>
+            <td class="text-secondary small">2026-02-11 12:50</td>
+            <td class="text-end"><a href="professor_david/Euler_identity_mathematic_expr.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">OAKFLIP</span></td>
+            <td><span class="text-white small fw-bold">DONATE YOUR OLD CLOTHES  DONT </span></td>
+            <td class="text-secondary small">2026-02-11 12:30</td>
+            <td class="text-end"><a href="oakflip/Donate_your_old_clothes__dont_.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">ENE_CONTRUCTION</span></td>
+            <td><span class="text-white small fw-bold">HIRE US FOR YOUR NEXT PROJECT </span></td>
+            <td class="text-secondary small">2026-02-11 11:45</td>
+            <td class="text-end"><a href="ene_contruction/Hire_us_for_your_next_project_.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">ENE_CONTRUCTION</span></td>
+            <td><span class="text-white small fw-bold">CONSTRUCTION SERVICES</span></td>
+            <td class="text-secondary small">2026-02-11 11:40</td>
+            <td class="text-end"><a href="ene_contruction/Construction_Services.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">THE_SMILE_INSTITUTE</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260211 112003</span></td>
+            <td class="text-secondary small">2026-02-11 11:20</td>
+            <td class="text-end"><a href="The_Smile_Institute/blog_20260211_112003.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">THE_SMILE_INSTITUTE</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260211 104503</span></td>
+            <td class="text-secondary small">2026-02-11 10:45</td>
+            <td class="text-end"><a href="The_Smile_Institute/blog_20260211_104503.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">DR_DIANA</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260211 104003</span></td>
+            <td class="text-secondary small">2026-02-11 10:40</td>
+            <td class="text-end"><a href="Dr_Diana/blog_20260211_104003.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">DR_YANG</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260211 012200</span></td>
+            <td class="text-secondary small">2026-02-11 01:22</td>
+            <td class="text-end"><a href="Dr_Yang/blog_20260211_012200.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">JESUS_ELETRICCIAN</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260211 000455</span></td>
+            <td class="text-secondary small">2026-02-11 00:05</td>
+            <td class="text-end"><a href="Jesus_Eletriccian/blog_20260211_000455.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">PAINTING_BROS</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260210 232841</span></td>
+            <td class="text-secondary small">2026-02-10 23:28</td>
+            <td class="text-end"><a href="Painting_Bros/blog_20260210_232841.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">2_BROTHERS_ROOFING</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260210 231523</span></td>
+            <td class="text-secondary small">2026-02-10 23:15</td>
+            <td class="text-end"><a href="2_brothers_roofing/blog_20260210_231523.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">GHOSTWRITER</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260210 225217</span></td>
+            <td class="text-secondary small">2026-02-10 22:52</td>
+            <td class="text-end"><a href="GhostWriter/blog_20260210_225217.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">GHOSTWRITER</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260210 204452</span></td>
+            <td class="text-secondary small">2026-02-10 20:45</td>
+            <td class="text-end"><a href="GhostWriter/blog_20260210_204452.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">GHOSTWRITER</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260210 204058</span></td>
+            <td class="text-secondary small">2026-02-10 20:41</td>
+            <td class="text-end"><a href="GhostWriter/blog_20260210_204058.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">DR_KIM</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260210 184418</span></td>
+            <td class="text-secondary small">2026-02-10 18:44</td>
+            <td class="text-end"><a href="Dr_Kim/blog_20260210_184418.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">DR_YANG_</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260210 154547</span></td>
+            <td class="text-secondary small">2026-02-10 15:45</td>
+            <td class="text-end"><a href="Dr_Yang_/blog_20260210_154547.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+        <tr>
+            <td><span class="client-id" style="margin:0;">DR_NEIL</span></td>
+            <td><span class="text-white small fw-bold">BLOG 20260210 154212</span></td>
+            <td class="text-secondary small">2026-02-10 15:42</td>
+            <td class="text-end"><a href="Dr_Neil/blog_20260210_154212.html" class="archive-link">ACCESS</a></td>
+        </tr>
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>
